@@ -1,0 +1,31 @@
+CREATE TABLE Accounts (
+    user_id INT AUTO_INCREMENT UNIQUE NOT NULL,
+    username VARCHAR(50) PRIMARY KEY ,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL  -- Store hashed passwords
+);
+
+CREATE TABLE Project_Table (
+    project_id INT AUTO_INCREMENT UNIQUE NOT NULL,
+    owner VARCHAR(255),
+    nameOfSaveDataFile varchar(255)
+);
+
+CREATE TABLE user_to_project (
+    username VARCHAR(50) ,
+    project_id INT,
+    PRIMARY KEY (username, project_id)  -- Composite primary key
+);
+
+CREATE TABLE Props (
+    prop_id INT AUTO_INCREMENT UNIQUE NOT NULL,
+    prop_name VARCHAR(50) PRIMARY KEY,
+    nameOfModelFile varchar(255)
+);
+
+
+INSERT INTO Accounts (user_id, username, email, password) 
+VALUES (0, 'Elsie', 'elsie@Scene.com', 'testPassword');
+
+SELECT * FROM Accounts;
+
