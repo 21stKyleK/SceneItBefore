@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scene It Before!</title>
+    <style>
+        body 
+        {
+            margin: 0;
+            font-family: Marcellus SC;
+            background-color: #e66666;
+            text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.50);
+        }
+        .container 
+        {
+            position: relative;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* This section involves the screen divider properties */
+        .left, .right
+        {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+        }
+        .left
+        {
+            background: linear-gradient(70deg, #D4696A 50%, transparent 50%);
+        }
+        .right
+        {
+            background: linear-gradient(70deg, transparent 50%, #ECD5DD 50%);
+        }
+
+        /* Main content property section */
+        .content 
+        {
+            text-align: left;
+            color: white;
+            padding-left: 50px;
+        }
+        .content h1 
+        {
+            font-size: 40px;
+            margin: 0;
+        }
+        .content p
+        {
+            font-size: 20px;
+        }
+
+        /* This section involves the two buttons that are on the top right of the page's properties */
+        .buttons 
+        {
+            position: absolute;
+            top: 20px;
+            right: 70px;
+        }
+        .buttons button 
+        {
+            border: 2px solid #D15C5C;
+            padding: 10px 50px;
+            margin: 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #btn-one 
+        {
+            background-color: #d9534f;
+            color: white;
+        }
+        #btn-one:hover 
+        {
+            background-color: #c9302c;
+        }
+        #btn-two 
+        {
+            background-color: #ECD5DD;
+            color: #D15C5C;
+        }
+        #btn-two:hover 
+        {
+            background-color: #e8c9c8;
+        }
+        
+        /* This section involves the two circles and penguin logo properties */
+        .circle 
+        {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .circle1 
+        {
+            width: 250px;
+            height: 250px;
+            top: 70%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+        }
+        .circle2 
+        {
+            width: 300px;
+            height: 300px;
+            top: 50%;
+            left: 70%;
+            transform: translate(-50%, -50%);
+        }
+        .penguin 
+        {
+            position: absolute;
+            top: 70%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            background: url('penguin-outline.png') no-repeat center center;
+            background-size: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <!-- The left and right classes are what divide the page with a diagonal line -->
+    <div class="left"></div>
+    <div class="right"></div>
+        <div class="content">
+            <h1><span style="font-size: 96px; display: inline-block; transform: scaleY(1.5); position: relative; bottom: 15px;">S</span>CENE IT BEFORE!</h1>
+            <p>Bring your stage to life!</p>
+            <p>Create an account to start a Project! Or Login to hop back into it!</p>
+        </div>
+        <div class="buttons">
+            <button id="btn-one"> Create Account</button>
+            <button id="btn-two">Log In</button>
+        </div>
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+        <div class="penguin"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
