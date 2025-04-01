@@ -21,6 +21,14 @@ public class MeshLoader : MonoBehaviour
         //named ProjectBuildName_Data and when first building, will be found with the executable
         string path = $"{Application.dataPath}/{filePath}";
         //look for the mesh at the above path, and if there, then get the mesh info and store in the Filter
-        GetComponent<MeshFilter>().sharedMesh = GenericSaveLoad.Load<SerializableMeshInfo>(path).GetMesh();
+        Mesh meshOut = GenericSaveLoad.Load<SerializableMeshInfo>(path).GetMesh();
+        GetComponent<MeshFilter>().sharedMesh = meshOut;
+
+        //sets the collider to the shared mesh so rays can hit the prop
+        //Debug.Log("Mesh start\t" + GetComponent<MeshCollider>().sharedMesh);
+
+        GetComponent<MeshCollider>().sharedMesh = meshOut;
+
+        //Debug.Log("Mesh end\t" + GetComponent<MeshCollider>().sharedMesh);
     }
 }
