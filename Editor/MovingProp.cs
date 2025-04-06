@@ -149,4 +149,10 @@ public class MovingProp : MonoBehaviour
         Destroy(clickProp);
         clickProp = null;
     }
+
+    //Takes the already existing mode and makes it functional for the buttons by assigning them the existing numbers into it via ButtonClick()
+    public void SetToolMode(int mode)
+    {
+        toolMode = mode;
+    }
 }
