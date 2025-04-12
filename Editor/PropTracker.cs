@@ -40,6 +40,10 @@ public class PropTracker : MonoBehaviour
                     Mathf.Clamp(transform.position.y, centerStage.Value.y - yBound, centerStage.Value.y + yBound),
                     Mathf.Clamp(transform.position.z, centerStage.Value.z - zBound, centerStage.Value.z + zBound));
                 //clamp will return either the first parameter (within the bounds) or the other 2 (under the minimum or over the maximum)
+
+                Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+                connect.SendWebSocketMessage("Move^" + name + "^" + transform.position.x + "^"
+                    + transform.position.y + "^" + transform.position.z);
             }
 
                 //go into a state that can unselect itself
