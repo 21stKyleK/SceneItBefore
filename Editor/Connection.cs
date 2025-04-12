@@ -103,7 +103,7 @@ public class Connection : MonoBehaviour
                     if (g.name.Equals(parts[1]))
                     {
                         Destroy(g);
-                        Debug.Log("Scale" + parts[2] + "^" + parts[3] + "^" + parts[4]);
+                        //Debug.Log("Scale" + parts[2] + "^" + parts[3] + "^" + parts[4]);
                         break;
                     }
                 }
