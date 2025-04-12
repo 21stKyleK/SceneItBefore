@@ -44,14 +44,15 @@ public class Connection : MonoBehaviour
             Debug.Log("OnMessage! " + message);
 
             string[] parts = message.Split('^');
-            string[] nameParts = parts[1].Split('|');
 
             if ("Create".Equals(parts[0])){
-                
+
+                string[] nameParts = parts[1].Split('|');
+
                 GameObject prefab = "PropPreFab".Equals(nameParts[0]) ? propPreFab : propPreFab1;
                 Vector3 pos = new Vector3(float.Parse(parts[2]), float.Parse(parts[3]), float.Parse(parts[4]));
-                GameObject newThing = Instantiate(prefab, pos, new Quaternion(float.Parse(parts[5]), float.Parse(parts[6]), float.Parse(parts[7]), 0));
-                newThing.transform.localScale = new Vector3(float.Parse(parts[8]), float.Parse(parts[9]), float.Parse(parts[10]));
+                GameObject newThing = Instantiate(prefab, pos, new Quaternion(float.Parse(parts[5]), float.Parse(parts[6]), float.Parse(parts[7]), float.Parse(parts[8])));
+                newThing.transform.localScale = new Vector3(float.Parse(parts[9]), float.Parse(parts[10]), float.Parse(parts[11]));
                 newThing.name = parts[1];
 
                 newThing.GetComponent<MeshLoader>().LoadMeshFromPath($"{Application.dataPath}/{nameParts[1]}.dat");
@@ -73,9 +74,10 @@ public class Connection : MonoBehaviour
                 {
                     if (g.name.Equals(parts[1]))
                     {
-                        Quaternion rotate = Quaternion.Euler(float.Parse(parts[2]), float.Parse(parts[3]), float.Parse(parts[4]));
-                        g.transform.rotation = rotate;
-                        Debug.Log("Rotate" + parts[2] + "^" + parts[3] + "^" + parts[4]);
+                        Quaternion rotate = new Quaternion(float.Parse(parts[2]), float.Parse(parts[3]), float.Parse(parts[4]), float.Parse(parts[5]));
+                        g.transform.rotation = Quaternion.identity;
+                        g.transform.rotation *= rotate;
+                        Debug.Log("Rotate" + parts[2] + "^" + parts[3] + "^" + parts[4] + "^" + parts[5]);
                     }
                 }
             }

@@ -47,7 +47,7 @@ public class CreateProp : MonoBehaviour
         newThing.GetComponent<MeshLoader>().LoadMeshFromPath($"{Application.dataPath}/{fPath}");
         Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
         connect.SendWebSocketMessage("Create^" + newThing.name + "^" + newThing.transform.position.x + "^" + newThing.transform.position.y + "^" + newThing.transform.position.z
-             + "^" + newThing.transform.rotation.x + "^" + newThing.transform.rotation.y + "^" + newThing.transform.rotation.z
+             + "^" + newThing.transform.rotation.x + "^" + newThing.transform.rotation.y + "^" + newThing.transform.rotation.z + "^" + newThing.transform.rotation.w
               + "^" + newThing.transform.localScale.x + "^" + newThing.transform.localScale.y + "^" + newThing.transform.localScale.z);
 
     }

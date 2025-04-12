@@ -131,7 +131,7 @@ public class MovingProp : MonoBehaviour
             0, Space.World);
         Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
         connect.SendWebSocketMessage("Rotate^" + clickProp.name + "^" + clickProp.transform.rotation.x + "^" 
-            + clickProp.transform.rotation.y + "^" + clickProp.transform.rotation.z);
+            + clickProp.transform.rotation.y + "^" + clickProp.transform.rotation.z+"^"+clickProp.transform.rotation.w);
     }
 
     void rotateXZ(Vector3 difference)
