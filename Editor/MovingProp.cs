@@ -128,7 +128,7 @@ public class MovingProp : MonoBehaviour
     {
         //set the rotation of the selected object to itself plus the difference of the mouse position in terms of x and y
         clickProp.transform.Rotate(difference.y / (limitFactor * rotateFactor), difference.x / (limitFactor * rotateFactor),
-            0, Space.World);
+            0, Space.Self);
         Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
         connect.SendWebSocketMessage("Rotate^" + clickProp.name + "^" + clickProp.transform.rotation.x + "^" 
             + clickProp.transform.rotation.y + "^" + clickProp.transform.rotation.z+"^"+clickProp.transform.rotation.w);
@@ -138,7 +138,7 @@ public class MovingProp : MonoBehaviour
     {
         //set the rotation of the selected object to itself plus the difference of the mouse position in terms of x and z
         clickProp.transform.Rotate(difference.y / (limitFactor * rotateFactor), 0,
-            difference.x / (limitFactor * rotateFactor), Space.World);
+            difference.x / (limitFactor * rotateFactor), Space.Self);
         //I think the extra Space.World parameter makes the rotation better
         Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
         connect.SendWebSocketMessage("Rotate^" + clickProp.name + "^" + clickProp.transform.rotation.x + "^" 
@@ -168,6 +168,9 @@ public class MovingProp : MonoBehaviour
 
     void deleteProp()
     {
+
+        Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+        connect.SendWebSocketMessage("Delete^" + clickProp.name);
         //https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Object.Destroy.html
         Destroy(clickProp);
         clickProp = null;

@@ -65,6 +65,7 @@ public class Connection : MonoBehaviour
                         Vector3 pos = new Vector3(float.Parse(parts[2]), float.Parse(parts[3]), float.Parse(parts[4]));
                         g.transform.position = pos;
                         Debug.Log("Move" + parts[2] + "^" + parts[3] + "^" + parts[4]);
+                        break;
                     }
                 }
             }
@@ -78,6 +79,7 @@ public class Connection : MonoBehaviour
                         g.transform.rotation = Quaternion.identity;
                         g.transform.rotation *= rotate;
                         Debug.Log("Rotate" + parts[2] + "^" + parts[3] + "^" + parts[4] + "^" + parts[5]);
+                        break;
                     }
                 }
             }
@@ -90,6 +92,19 @@ public class Connection : MonoBehaviour
                         Vector3 scale = new Vector3(float.Parse(parts[2]), float.Parse(parts[3]), float.Parse(parts[4]));
                         g.transform.localScale = scale;
                         Debug.Log("Scale" + parts[2] + "^" + parts[3] + "^" + parts[4]);
+                        break;
+                    }
+                }
+            }
+            else if ("Delete".Equals(parts[0]))
+            {
+                foreach (GameObject g in GameObject.FindGameObjectsWithTag("Player"))
+                {
+                    if (g.name.Equals(parts[1]))
+                    {
+                        Destroy(g);
+                        Debug.Log("Scale" + parts[2] + "^" + parts[3] + "^" + parts[4]);
+                        break;
                     }
                 }
             }
