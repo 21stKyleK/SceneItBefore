@@ -142,7 +142,7 @@ public class MovingProp : MonoBehaviour
         //I think the extra Space.World parameter makes the rotation better
         Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
         connect.SendWebSocketMessage("Rotate^" + clickProp.name + "^" + clickProp.transform.rotation.x + "^" 
-            + clickProp.transform.rotation.y + "^" + clickProp.transform.rotation.z);
+            + clickProp.transform.rotation.y + "^" + clickProp.transform.rotation.z + "^" + clickProp.transform.rotation.w);
     }
 
     //change prop's scale
