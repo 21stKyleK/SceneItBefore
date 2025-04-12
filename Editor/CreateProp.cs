@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CreateProp : MonoBehaviour
 {
+
     //upload prop prefab to this variable
     public GameObject makeThis = null;
 
@@ -18,6 +19,8 @@ public class CreateProp : MonoBehaviour
         //https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Object.Instantiate.html
         GameObject newThing = Instantiate(makeThis, defaultPosition.Value, new Quaternion(0, 0, 0, 0));
 
+        newThing.name = System.DateTime.Now.ToString();
+
         //activate the MeshLoader
         newThing.GetComponent<MeshLoader>().LoadMeshFromPath($"{Application.dataPath}/{filePath}");
         /*alter this to use a more fitting file path
@@ -29,6 +32,8 @@ public class CreateProp : MonoBehaviour
     {
         GameObject newThing = Instantiate(makeThat, defaultPosition.Value, new Quaternion(0, 0, 0, 0));
 
+        newThing.name = System.DateTime.Now.ToString();
+
         newThing.GetComponent<MeshLoader>().LoadMeshFromPath($"{Application.dataPath}/{filePath}");
     }
 
@@ -37,7 +42,14 @@ public class CreateProp : MonoBehaviour
     {
         GameObject newThing = Instantiate(makeThis, defaultPosition.Value, new Quaternion(0, 0, 0, 0));
 
+        newThing.name = makeThis.name + "|" + fPath.Substring(0, fPath.Length-4) + "|" + System.DateTime.Now.ToString();
+
         newThing.GetComponent<MeshLoader>().LoadMeshFromPath($"{Application.dataPath}/{fPath}");
+        Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+        connect.SendWebSocketMessage("Create^" + newThing.name + "^" + newThing.transform.position.x + "^" + newThing.transform.position.y + "^" + newThing.transform.position.z
+             + "^" + newThing.transform.rotation.x + "^" + newThing.transform.rotation.y + "^" + newThing.transform.rotation.z
+              + "^" + newThing.transform.localScale.x + "^" + newThing.transform.localScale.y + "^" + newThing.transform.localScale.z);
+
     }
 
     public void SetFilePath(string newPath)

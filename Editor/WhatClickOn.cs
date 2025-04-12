@@ -17,10 +17,17 @@ public class WhatClickOn : MonoBehaviour
     //variables to hold the object and component
     private GameObject clickThing = null;
     private PropTracker clickThingCom = null;
+    Connection connect;
+
 
     void Start()
     {
         mps = GetComponent<MovingProp>();
+        connect = GameObject.Find("Connect").GetComponent<Connection>();
+        if (connect == null)
+        {
+            connect = new();
+        }
     }
 
 
@@ -83,7 +90,7 @@ public class WhatClickOn : MonoBehaviour
                 if (clickThingCom.isFree)
                 {
                     clickThing = selectedObj.transform.gameObject;
-                    mps.toolMode = debugMode;
+                    // mps.toolMode = debugMode; // no longer needed 
                 }
                 else
                 {

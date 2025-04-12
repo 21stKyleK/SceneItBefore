@@ -101,15 +101,26 @@ public class MovingProp : MonoBehaviour
     void moveXY(Vector3 difference)
     {
         //set the position of the selected object to itself plus the difference of the mouse position in terms of x and y
-        clickProp.transform.position = new Vector3(clickProp.transform.position.x + difference.x,
+        Vector3 newPos = new Vector3(clickProp.transform.position.x + difference.x,
             clickProp.transform.position.y + difference.y, clickProp.transform.position.z);
+
+        clickProp.transform.position = newPos;
+        Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+        connect.SendWebSocketMessage("Move^" + clickProp.name + "^" + newPos.x + "^" 
+            + newPos.y + "^" + newPos.z);
     }
 
     void moveXZ(Vector3 difference)
     {
         //set the position of the selected object to itself plus the difference of the mouse position in terms of x and z
-        clickProp.transform.position = new Vector3(clickProp.transform.position.x + difference.x,
-            clickProp.transform.position.y, clickProp.transform.position.z + difference.y);
+        Vector3 newPos = new Vector3(clickProp.transform.position.x + difference.x,
+            clickProp.transform.position.y , clickProp.transform.position.z + difference.y);
+
+        clickProp.transform.position = newPos;
+        Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+        connect.SendWebSocketMessage("Move^" + clickProp.name + "^" + newPos.x + "^"
+            + newPos.y + "^" + newPos.z); 
+        
     }
 
     //move prop rotation. Y movement will roate along X axis. Undo the limit factor to speed up rotation
@@ -118,6 +129,9 @@ public class MovingProp : MonoBehaviour
         //set the rotation of the selected object to itself plus the difference of the mouse position in terms of x and y
         clickProp.transform.Rotate(difference.y / (limitFactor * rotateFactor), difference.x / (limitFactor * rotateFactor),
             0, Space.World);
+        Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+        connect.SendWebSocketMessage("Rotate^" + clickProp.name + "^" + clickProp.transform.rotation.x + "^" 
+            + clickProp.transform.rotation.y + "^" + clickProp.transform.rotation.z);
     }
 
     void rotateXZ(Vector3 difference)
@@ -126,6 +140,9 @@ public class MovingProp : MonoBehaviour
         clickProp.transform.Rotate(difference.y / (limitFactor * rotateFactor), 0,
             difference.x / (limitFactor * rotateFactor), Space.World);
         //I think the extra Space.World parameter makes the rotation better
+        Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+        connect.SendWebSocketMessage("Rotate^" + clickProp.name + "^" + clickProp.transform.rotation.x + "^" 
+            + clickProp.transform.rotation.y + "^" + clickProp.transform.rotation.z);
     }
 
     //change prop's scale
@@ -134,6 +151,9 @@ public class MovingProp : MonoBehaviour
         //set the scale of the selected object to itself plus the difference of the mouse position in terms of x and y
         clickProp.transform.localScale = new Vector3(clickProp.transform.localScale.x + difference.x,
             clickProp.transform.localScale.y + difference.y, clickProp.transform.localScale.z);
+        Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+        connect.SendWebSocketMessage("Scale^" + clickProp.name + "^"
+           + clickProp.transform.localScale.x + "^" + clickProp.transform.localScale.y + "^" + clickProp.transform.localScale.z);
     }
 
     void scaleXZ(Vector3 difference)
@@ -141,6 +161,9 @@ public class MovingProp : MonoBehaviour
         //set the scale of the selected object to itself plus the difference of the mouse position in terms of x and z
         clickProp.transform.localScale = new Vector3(clickProp.transform.localScale.x + difference.x,
             clickProp.transform.localScale.y, clickProp.transform.localScale.z + difference.y);
+        Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+        connect.SendWebSocketMessage("Scale^" + clickProp.name  + "^" 
+            + clickProp.transform.localScale.x + "^" + clickProp.transform.localScale.y + "^" + clickProp.transform.localScale.z);
     }
 
     void deleteProp()
