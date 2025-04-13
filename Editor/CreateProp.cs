@@ -15,6 +15,7 @@ public class CreateProp : MonoBehaviour
 
     private StringBuilder strB = new StringBuilder();
 
+    /*
     //create prop at defaultPosition
     public void CreateTheProp()
     {
@@ -26,10 +27,11 @@ public class CreateProp : MonoBehaviour
 
         //activate the MeshLoader
         newThing.GetComponent<MeshLoader>().LoadMeshFromPath($"{Application.dataPath}/{filePath}");
-        /*alter this to use a more fitting file path
-         */
+        //alter this to use a more fitting file path
+         
     }
-
+*/
+    /*
     //overload incase previous implementation doesn't work
     public void CreateTheProp(GameObject makeThat)
     {
@@ -39,6 +41,7 @@ public class CreateProp : MonoBehaviour
 
         newThing.GetComponent<MeshLoader>().LoadMeshFromPath($"{Application.dataPath}/{filePath}");
     }
+    */
 
     //overload with a file path instead
     public void CreateTheProp(string fPath)
@@ -55,6 +58,7 @@ public class CreateProp : MonoBehaviour
 
         Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
 
+        //sends the create message to the server
         strB.Clear().Append("Create^").Append(newThing.name).Append("^").Append(newThing.transform.position.x).Append("^").Append(newThing.transform.position.y).Append("^").Append(newThing.transform.position.z
             ).Append("^").Append(newThing.transform.rotation.x).Append("^").Append(newThing.transform.rotation.y).Append("^").Append(newThing.transform.rotation.z).Append("^").Append(newThing.transform.rotation.w
              ).Append("^").Append(newThing.transform.localScale.x).Append("^").Append(newThing.transform.localScale.y).Append("^").Append(newThing.transform.localScale.z);
@@ -63,6 +67,7 @@ public class CreateProp : MonoBehaviour
         connect.SendWebSocketMessage(strB.ToString());
     }
 
+    /*
     public void SetFilePath(string newPath)
     {
         filePath = newPath;
@@ -73,4 +78,5 @@ public class CreateProp : MonoBehaviour
     {
         makeThis = newThing;
     }
+    */
 }

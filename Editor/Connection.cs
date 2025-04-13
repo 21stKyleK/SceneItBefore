@@ -12,6 +12,8 @@ public class Connection : MonoBehaviour
     public GameObject propPreFab;
     public GameObject propPreFab1;
 
+    private PropTracker gpt = null;
+
     // Start is called before the first frame update
     async void Start()
     {
@@ -56,7 +58,7 @@ public class Connection : MonoBehaviour
                 newThing.name = parts[1];
 
                 //interperlation saves memory but costs CPU
-                newThing.GetComponent<MeshLoader>().LoadMeshFromPath($"{Application.dataPath}/{nameParts[1]}.dat");
+                newThing.GetComponent<MeshLoader>().LoadMeshFromWeb($"{nameParts[1]}.dat");
             }
             else if ("Move".Equals(parts[0])){
                 foreach (GameObject g in GameObject.FindGameObjectsWithTag("Player"))
@@ -68,10 +70,9 @@ public class Connection : MonoBehaviour
                         //Debug.Log("Move" + parts[2] + "^" + parts[3] + "^" + parts[4]);
 
                         //locks the prop just in case
-                        PropTracker gpt = g.GetComponent<PropTracker>();
+                        gpt = g.GetComponent<PropTracker>();
 
-                        gpt.isFree = false;
-                        gpt.notInUse = false;
+                        gpt.nobodyElse = false;
 
                         break;
                     }
@@ -87,6 +88,12 @@ public class Connection : MonoBehaviour
                         g.transform.rotation = Quaternion.identity;
                         g.transform.rotation *= rotate;
                         //Debug.Log("Rotate" + parts[2] + "^" + parts[3] + "^" + parts[4] + "^" + parts[5]);
+
+                        //locks the prop just in case
+                        gpt = g.GetComponent<PropTracker>();
+
+                        gpt.nobodyElse = false;
+
                         break;
                     }
                 }
@@ -104,10 +111,10 @@ public class Connection : MonoBehaviour
                         //locks the prop while others are editing it
                         PropTracker gpt = g.GetComponent<PropTracker>();
 
-                        gpt.isFree = false;
-                        gpt.notInUse = false;
+                        //locks the prop just in case
+                        gpt = g.GetComponent<PropTracker>();
 
-                        break;
+                        gpt.nobodyElse = false;
                     }
                 }
             }
@@ -134,10 +141,10 @@ public class Connection : MonoBehaviour
                     {
                         PropTracker gpt = g.GetComponent<PropTracker>();
 
-                        gpt.isFree = true;
-                        gpt.notInUse = true;
+                        //unlocks the prop just in case
+                        gpt = g.GetComponent<PropTracker>();
 
-                        break;
+                        gpt.nobodyElse = true;
                     }
                 }
             }

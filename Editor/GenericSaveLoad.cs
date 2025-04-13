@@ -40,6 +40,7 @@ public static class GenericSaveLoad
     }
     */
 
+    /*
     //retrieves data's file into the specified serilizable format
     public static T Load<T>(string filePath)
     {
@@ -58,6 +59,7 @@ public static class GenericSaveLoad
             // return default;
         }
     }
+    */
 
     /*
     //function that's supposed to retrieve data from online using WebRequests. Only need the name of the file

@@ -11,7 +11,7 @@ Should be tested to see if it can retrieve things across the interent
 
 public class MeshLoader : MonoBehaviour
 {
-
+    /*
     public void LoadMeshFromPath(string fPath)
     {
         //fPath should be the path to the mesh file according to the database
@@ -31,6 +31,7 @@ public class MeshLoader : MonoBehaviour
         GetComponent<MeshCollider>().sharedMesh = meshOut;
 
     }
+    */
 
     public async void LoadMeshFromWeb(string fPath)
     {

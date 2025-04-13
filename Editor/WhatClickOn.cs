@@ -87,8 +87,8 @@ public class WhatClickOn : MonoBehaviour
 
                 clickThingCom = selectedObj.transform.gameObject.GetComponent<PropTracker>();
 
-                //check if the object is held by another user
-                if (clickThingCom.isFree)
+                //check if the object is held by another user (as per the messages)
+                if (clickThingCom.nobodyElse)
                 {
                     clickThing = selectedObj.transform.gameObject;
                     // mps.toolMode = debugMode; // no longer needed 

@@ -17,9 +17,12 @@ public class PropTracker : MonoBehaviour
     //boundaries based on the center of the stage, being horizontal, vertical, and depth respectively
     [SerializeField] FloatVar xBound, yBound, zBound;
 
-    //booleans to control whether or not the prop is selected by a user
+    //booleans to control whether or not the prop is selected by a user. Only useful for putting the prop on stage
     public bool isFree = true, notInUse = true;
     //true means that users can select them, isFree = false means users can't select, notInUse = false means that a user is still using it
+
+    //bool that actually tracks of other users have it
+    public bool nobodyElse = true;
 
     private StringBuilder strB = new StringBuilder();
 
@@ -32,7 +35,7 @@ public class PropTracker : MonoBehaviour
         //to reduce the number of operations if idle, only check position if prop isn't free
         if (!isFree)
         {
-            //try to become unselected from users
+            //try to become unselected from users. Keeping this instead of moving entirely to nobodyElse because less of a pain
             if (notInUse) { isFree = true;
 
                 //Debug.Log("Prop became Free");
