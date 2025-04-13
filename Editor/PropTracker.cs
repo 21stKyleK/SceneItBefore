@@ -26,6 +26,8 @@ public class PropTracker : MonoBehaviour
 
     private StringBuilder strB = new StringBuilder();
 
+    private Connection connect = null;
+
     // Update is called every so often
     void FixedUpdate()
     {
@@ -47,7 +49,7 @@ public class PropTracker : MonoBehaviour
                     Mathf.Clamp(transform.position.z, centerStage.Value.z - zBound, centerStage.Value.z + zBound));
                 //clamp will return either the first parameter (within the bounds) or the other 2 (under the minimum or over the maximum)
 
-                Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+                connect = GameObject.Find("Connect").GetComponent<Connection>();
 
                 strB.Clear().Append("Move^").Append(name).Append("^").Append(transform.position.x).Append("^").Append(transform.position.y).Append("^").Append(transform.position.z);
 

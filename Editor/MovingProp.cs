@@ -24,9 +24,12 @@ public class MovingProp : MonoBehaviour
 
     private Vector3 oldMousePos, newMousePos;
 
+    //creation of strings that don't use up so much memory
     private StringBuilder strB = new StringBuilder();
 
-    
+    //enables the passing of the protocol
+    private Connection connect = null;
+
     //update called once per frame
     void Update()
     {
@@ -109,7 +112,8 @@ public class MovingProp : MonoBehaviour
             clickProp.transform.position.y + difference.y, clickProp.transform.position.z);
 
         clickProp.transform.position = newPos;
-        Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+        
+        connect = GameObject.Find("Connect").GetComponent<Connection>();
 
         //builds string without a lot of garbage
         strB.Clear().Append("Move^").Append(clickProp.name).Append("^").Append(newPos.x).Append("^").Append(newPos.y).Append("^").Append(newPos.z);
@@ -124,7 +128,8 @@ public class MovingProp : MonoBehaviour
             clickProp.transform.position.y , clickProp.transform.position.z + difference.y);
 
         clickProp.transform.position = newPos;
-        Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+        
+        connect = GameObject.Find("Connect").GetComponent<Connection>();
 
         strB.Clear().Append("Move^").Append(clickProp.name).Append("^").Append(newPos.x).Append("^").Append(newPos.y).Append("^").Append(newPos.z);
 
@@ -139,7 +144,7 @@ public class MovingProp : MonoBehaviour
         clickProp.transform.Rotate(difference.y / (limitFactor * rotateFactor), difference.x / (limitFactor * rotateFactor),
             0, Space.Self);
 
-        Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+        connect = GameObject.Find("Connect").GetComponent<Connection>();
 
         strB.Clear().Append("Rotate^").Append(clickProp.name).Append("^").Append(clickProp.transform.rotation.x).Append("^").Append(clickProp.transform.rotation.y).Append("^").Append(clickProp.transform.rotation.z).Append("^").Append(clickProp.transform.rotation.w);
 
@@ -152,7 +157,7 @@ public class MovingProp : MonoBehaviour
         clickProp.transform.Rotate(difference.y / (limitFactor * rotateFactor), 0,
             difference.x / (limitFactor * rotateFactor), Space.Self);
         //I think the extra Space.World parameter makes the rotation better
-        Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+        connect = GameObject.Find("Connect").GetComponent<Connection>();
 
         strB.Clear().Append("Rotate^").Append(clickProp.name).Append("^").Append(clickProp.transform.rotation.x).Append("^").Append(clickProp.transform.rotation.y).Append("^").Append(clickProp.transform.rotation.z).Append("^").Append(clickProp.transform.rotation.w);
 
@@ -165,7 +170,8 @@ public class MovingProp : MonoBehaviour
         //set the scale of the selected object to itself plus the difference of the mouse position in terms of x and y
         clickProp.transform.localScale = new Vector3(clickProp.transform.localScale.x + difference.x,
             clickProp.transform.localScale.y + difference.y, clickProp.transform.localScale.z);
-        Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+        
+        connect = GameObject.Find("Connect").GetComponent<Connection>();
 
         strB.Clear().Append("Scale^").Append(clickProp.name).Append("^").Append(clickProp.transform.localScale.x).Append("^").Append(clickProp.transform.localScale.y).Append("^").Append(clickProp.transform.localScale.z);
 
@@ -177,7 +183,8 @@ public class MovingProp : MonoBehaviour
         //set the scale of the selected object to itself plus the difference of the mouse position in terms of x and z
         clickProp.transform.localScale = new Vector3(clickProp.transform.localScale.x + difference.x,
             clickProp.transform.localScale.y, clickProp.transform.localScale.z + difference.y);
-        Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+        
+        connect = GameObject.Find("Connect").GetComponent<Connection>();
 
         strB.Clear().Append("Scale^").Append(clickProp.name).Append("^").Append(clickProp.transform.localScale.x).Append("^").Append(clickProp.transform.localScale.y).Append("^").Append(clickProp.transform.localScale.z);
 
@@ -186,8 +193,7 @@ public class MovingProp : MonoBehaviour
 
     void deleteProp()
     {
-
-        Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+        connect = GameObject.Find("Connect").GetComponent<Connection>();
 
         strB.Clear().Append("Delete^").Append(clickProp.name);
 

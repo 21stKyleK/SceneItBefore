@@ -15,6 +15,8 @@ public class CreateProp : MonoBehaviour
 
     private StringBuilder strB = new StringBuilder();
 
+    private Connection connect = null;
+
     /*
     //create prop at defaultPosition
     public void CreateTheProp()
@@ -56,7 +58,7 @@ public class CreateProp : MonoBehaviour
         //using UnityWebRequest as added to GenericSaveLoad
         newThing.GetComponent<MeshLoader>().LoadMeshFromWeb(fPath);
 
-        Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
+        connect = GameObject.Find("Connect").GetComponent<Connection>();
 
         //sends the create message to the server
         strB.Clear().Append("Create^").Append(newThing.name).Append("^").Append(newThing.transform.position.x).Append("^").Append(newThing.transform.position.y).Append("^").Append(newThing.transform.position.z
