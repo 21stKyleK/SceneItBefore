@@ -17,7 +17,9 @@ public class MeshLoader : MonoBehaviour
         //fPath should be the path to the mesh file according to the database
         string path = $"{fPath}";
         //look for the mesh at the above path, and if there, then get the mesh info and store in the Filter
+
         Mesh meshOut = GenericSaveLoad.Load<SerializableMeshInfo>(path).GetMesh();
+        
         //the required scripts should be edited to be compatible with online connections
         //GenericSaveLoad, primarily
 
@@ -27,6 +29,28 @@ public class MeshLoader : MonoBehaviour
         //Debug.Log("Mesh start\t" + GetComponent<MeshCollider>().sharedMesh);
 
         GetComponent<MeshCollider>().sharedMesh = meshOut;
+
+    }
+
+    public async void LoadMeshFromWeb(string fPath)
+    {
+        //fPath should be the name of the mesh file according to the database
+        //string path = $"{fPath}";
+        //look for the mesh at https://www.sceneitbefore.org/WebGLBuild/{fileName}
+
+        //will await for the asynchronous web request, which will return a Task<T>, which will then have the GetMesh() called
+        Mesh meshOut = (await GenericSaveLoad.RequestMesh<SerializableMeshInfo>(fPath)).GetMesh();
+
+        //the required scripts should be edited to be compatible with online connections
+        //GenericSaveLoad, primarily
+
+        GetComponent<MeshFilter>().sharedMesh = meshOut;
+
+        //sets the collider to the shared mesh so rays can hit the prop
+        //Debug.Log("Mesh start\t" + GetComponent<MeshCollider>().sharedMesh);
+
+        GetComponent<MeshCollider>().sharedMesh = meshOut;
+
     }
 
     //public string filePath = "mesh.dat";

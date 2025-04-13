@@ -66,6 +66,13 @@ public class Connection : MonoBehaviour
                         Vector3 pos = new Vector3(float.Parse(parts[2]), float.Parse(parts[3]), float.Parse(parts[4]));
                         g.transform.position = pos;
                         //Debug.Log("Move" + parts[2] + "^" + parts[3] + "^" + parts[4]);
+
+                        //locks the prop just in case
+                        PropTracker gpt = g.GetComponent<PropTracker>();
+
+                        gpt.isFree = false;
+                        gpt.notInUse = false;
+
                         break;
                     }
                 }
@@ -93,6 +100,13 @@ public class Connection : MonoBehaviour
                         Vector3 scale = new Vector3(float.Parse(parts[2]), float.Parse(parts[3]), float.Parse(parts[4]));
                         g.transform.localScale = scale;
                         //Debug.Log("Scale" + parts[2] + "^" + parts[3] + "^" + parts[4]);
+
+                        //locks the prop while others are editing it
+                        PropTracker gpt = g.GetComponent<PropTracker>();
+
+                        gpt.isFree = false;
+                        gpt.notInUse = false;
+
                         break;
                     }
                 }
@@ -105,6 +119,24 @@ public class Connection : MonoBehaviour
                     {
                         Destroy(g);
                         //Debug.Log("Scale" + parts[2] + "^" + parts[3] + "^" + parts[4]);
+
+                        //breaks are to leave the for loop if there a lot of props
+                        break;
+                    }
+                }
+            }
+            else if ("LockRelease".Equals(parts[0]))
+            {
+                //releases the locks on both objects to avoid an infinite loop caused by the PropTracker
+                foreach (GameObject g in GameObject.FindGameObjectsWithTag("Player"))
+                {
+                    if (g.name.Equals(parts[1]))
+                    {
+                        PropTracker gpt = g.GetComponent<PropTracker>();
+
+                        gpt.isFree = true;
+                        gpt.notInUse = true;
+
                         break;
                     }
                 }

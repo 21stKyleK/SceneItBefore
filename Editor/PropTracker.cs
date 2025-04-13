@@ -49,6 +49,9 @@ public class PropTracker : MonoBehaviour
                 strB.Clear().Append("Move^").Append(name).Append("^").Append(transform.position.x).Append("^").Append(transform.position.y).Append("^").Append(transform.position.z);
 
                 connect.SendWebSocketMessage(strB.ToString());
+
+                strB.Clear().Append("LockRelease^").Append(name);
+
             }
 
                 //go into a state that can unselect itself

@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 public class CreateProp : MonoBehaviour
@@ -11,7 +12,9 @@ public class CreateProp : MonoBehaviour
 
     //file path that will be appended to whatever the folder that contains the mesh data
     public string filePath = "mesh.dat";
-    
+
+    private StringBuilder strB = new StringBuilder();
+
     //create prop at defaultPosition
     public void CreateTheProp()
     {
@@ -42,14 +45,22 @@ public class CreateProp : MonoBehaviour
     {
         GameObject newThing = Instantiate(makeThis, defaultPosition.Value, new Quaternion(0, 0, 0, 0));
 
-        newThing.name = makeThis.name + "|" + fPath.Substring(0, fPath.Length-4) + "|" + System.DateTime.Now.ToString();
+        strB.Clear().Append(makeThis.name).Append("|").Append(fPath.Substring(0, fPath.Length - 4)).Append("|").Append(System.DateTime.Now.ToString());
+        newThing.name = strB.ToString();
 
-        newThing.GetComponent<MeshLoader>().LoadMeshFromPath($"{Application.dataPath}/{fPath}");
+        //Debug.Log($"{Application.dataPath}/{fPath}");
+
+        //using UnityWebRequest as added to GenericSaveLoad
+        newThing.GetComponent<MeshLoader>().LoadMeshFromWeb(fPath);
+
         Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
-        connect.SendWebSocketMessage("Create^" + newThing.name + "^" + newThing.transform.position.x + "^" + newThing.transform.position.y + "^" + newThing.transform.position.z
-             + "^" + newThing.transform.rotation.x + "^" + newThing.transform.rotation.y + "^" + newThing.transform.rotation.z + "^" + newThing.transform.rotation.w
-              + "^" + newThing.transform.localScale.x + "^" + newThing.transform.localScale.y + "^" + newThing.transform.localScale.z);
 
+        strB.Clear().Append("Create^").Append(newThing.name).Append("^").Append(newThing.transform.position.x).Append("^").Append(newThing.transform.position.y).Append("^").Append(newThing.transform.position.z
+            ).Append("^").Append(newThing.transform.rotation.x).Append("^").Append(newThing.transform.rotation.y).Append("^").Append(newThing.transform.rotation.z).Append("^").Append(newThing.transform.rotation.w
+             ).Append("^").Append(newThing.transform.localScale.x).Append("^").Append(newThing.transform.localScale.y).Append("^").Append(newThing.transform.localScale.z);
+
+        //forgot to paste this here earlier, so create message never sent
+        connect.SendWebSocketMessage(strB.ToString());
     }
 
     public void SetFilePath(string newPath)

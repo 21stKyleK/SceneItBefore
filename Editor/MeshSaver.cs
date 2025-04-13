@@ -27,7 +27,7 @@ public class MeshSaver : MonoBehaviour
         //get the asset from the filePath appended to the application path
         //points to the project assets folder if done within Unity editor
         string path = $"{Application.dataPath}/{filePath}";
-        GenericSaveLoad.Save<SerializableMeshInfo>(new SerializableMeshInfo(meshIn), path);
+        //GenericSaveLoad.Save<SerializableMeshInfo>(new SerializableMeshInfo(meshIn), path);
     }
 
 }
