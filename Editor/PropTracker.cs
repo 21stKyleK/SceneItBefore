@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 /*
@@ -19,6 +20,8 @@ public class PropTracker : MonoBehaviour
     //booleans to control whether or not the prop is selected by a user
     public bool isFree = true, notInUse = true;
     //true means that users can select them, isFree = false means users can't select, notInUse = false means that a user is still using it
+
+    private StringBuilder strB = new StringBuilder();
 
     // Update is called every so often
     void FixedUpdate()
@@ -42,8 +45,10 @@ public class PropTracker : MonoBehaviour
                 //clamp will return either the first parameter (within the bounds) or the other 2 (under the minimum or over the maximum)
 
                 Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
-                connect.SendWebSocketMessage("Move^" + name + "^" + transform.position.x + "^"
-                    + transform.position.y + "^" + transform.position.z);
+
+                strB.Clear().Append("Move^").Append(name).Append("^").Append(transform.position.x).Append("^").Append(transform.position.y).Append("^").Append(transform.position.z);
+
+                connect.SendWebSocketMessage(strB.ToString());
             }
 
                 //go into a state that can unselect itself

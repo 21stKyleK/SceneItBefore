@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 /*
@@ -23,6 +24,9 @@ public class MovingProp : MonoBehaviour
 
     private Vector3 oldMousePos, newMousePos;
 
+    private StringBuilder strB = new StringBuilder();
+
+    
     //update called once per frame
     void Update()
     {
@@ -106,8 +110,11 @@ public class MovingProp : MonoBehaviour
 
         clickProp.transform.position = newPos;
         Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
-        connect.SendWebSocketMessage("Move^" + clickProp.name + "^" + newPos.x + "^" 
-            + newPos.y + "^" + newPos.z);
+
+        //builds string without a lot of garbage
+        strB.Clear().Append("Move^").Append(clickProp.name).Append("^").Append(newPos.x).Append("^").Append(newPos.y).Append("^").Append(newPos.z);
+
+        connect.SendWebSocketMessage(strB.ToString());
     }
 
     void moveXZ(Vector3 difference)
@@ -118,8 +125,10 @@ public class MovingProp : MonoBehaviour
 
         clickProp.transform.position = newPos;
         Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
-        connect.SendWebSocketMessage("Move^" + clickProp.name + "^" + newPos.x + "^"
-            + newPos.y + "^" + newPos.z); 
+
+        strB.Clear().Append("Move^").Append(clickProp.name).Append("^").Append(newPos.x).Append("^").Append(newPos.y).Append("^").Append(newPos.z);
+
+        connect.SendWebSocketMessage(strB.ToString());
         
     }
 
@@ -129,9 +138,12 @@ public class MovingProp : MonoBehaviour
         //set the rotation of the selected object to itself plus the difference of the mouse position in terms of x and y
         clickProp.transform.Rotate(difference.y / (limitFactor * rotateFactor), difference.x / (limitFactor * rotateFactor),
             0, Space.Self);
+
         Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
-        connect.SendWebSocketMessage("Rotate^" + clickProp.name + "^" + clickProp.transform.rotation.x + "^" 
-            + clickProp.transform.rotation.y + "^" + clickProp.transform.rotation.z+"^"+clickProp.transform.rotation.w);
+
+        strB.Clear().Append("Rotate^").Append(clickProp.name).Append("^").Append(clickProp.transform.rotation.x).Append("^").Append(clickProp.transform.rotation.y).Append("^").Append(clickProp.transform.rotation.z).Append("^").Append(clickProp.transform.rotation.w);
+
+        connect.SendWebSocketMessage(strB.ToString());
     }
 
     void rotateXZ(Vector3 difference)
@@ -141,8 +153,10 @@ public class MovingProp : MonoBehaviour
             difference.x / (limitFactor * rotateFactor), Space.Self);
         //I think the extra Space.World parameter makes the rotation better
         Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
-        connect.SendWebSocketMessage("Rotate^" + clickProp.name + "^" + clickProp.transform.rotation.x + "^" 
-            + clickProp.transform.rotation.y + "^" + clickProp.transform.rotation.z + "^" + clickProp.transform.rotation.w);
+
+        strB.Clear().Append("Rotate^").Append(clickProp.name).Append("^").Append(clickProp.transform.rotation.x).Append("^").Append(clickProp.transform.rotation.y).Append("^").Append(clickProp.transform.rotation.z).Append("^").Append(clickProp.transform.rotation.w);
+
+        connect.SendWebSocketMessage(strB.ToString());
     }
 
     //change prop's scale
@@ -152,8 +166,10 @@ public class MovingProp : MonoBehaviour
         clickProp.transform.localScale = new Vector3(clickProp.transform.localScale.x + difference.x,
             clickProp.transform.localScale.y + difference.y, clickProp.transform.localScale.z);
         Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
-        connect.SendWebSocketMessage("Scale^" + clickProp.name + "^"
-           + clickProp.transform.localScale.x + "^" + clickProp.transform.localScale.y + "^" + clickProp.transform.localScale.z);
+
+        strB.Clear().Append("Scale^").Append(clickProp.name).Append("^").Append(clickProp.transform.localScale.x).Append("^").Append(clickProp.transform.localScale.y).Append("^").Append(clickProp.transform.localScale.z);
+
+        connect.SendWebSocketMessage(strB.ToString());
     }
 
     void scaleXZ(Vector3 difference)
@@ -162,15 +178,21 @@ public class MovingProp : MonoBehaviour
         clickProp.transform.localScale = new Vector3(clickProp.transform.localScale.x + difference.x,
             clickProp.transform.localScale.y, clickProp.transform.localScale.z + difference.y);
         Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
-        connect.SendWebSocketMessage("Scale^" + clickProp.name  + "^" 
-            + clickProp.transform.localScale.x + "^" + clickProp.transform.localScale.y + "^" + clickProp.transform.localScale.z);
+
+        strB.Clear().Append("Scale^").Append(clickProp.name).Append("^").Append(clickProp.transform.localScale.x).Append("^").Append(clickProp.transform.localScale.y).Append("^").Append(clickProp.transform.localScale.z);
+
+        connect.SendWebSocketMessage(strB.ToString());
     }
 
     void deleteProp()
     {
 
         Connection connect = GameObject.Find("Connect").GetComponent<Connection>();
-        connect.SendWebSocketMessage("Delete^" + clickProp.name);
+
+        strB.Clear().Append("Delete^").Append(clickProp.name);
+
+        connect.SendWebSocketMessage(strB.ToString());
+
         //https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Object.Destroy.html
         Destroy(clickProp);
         clickProp = null;

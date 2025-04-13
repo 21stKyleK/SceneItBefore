@@ -41,7 +41,7 @@ public class Connection : MonoBehaviour
 
             // getting the message as a string
             var message = System.Text.Encoding.UTF8.GetString(bytes);
-            Debug.Log("OnMessage! " + message);
+            //Debug.Log("OnMessage! " + message);
 
             string[] parts = message.Split('^');
 
@@ -55,6 +55,7 @@ public class Connection : MonoBehaviour
                 newThing.transform.localScale = new Vector3(float.Parse(parts[9]), float.Parse(parts[10]), float.Parse(parts[11]));
                 newThing.name = parts[1];
 
+                //interperlation saves memory but costs CPU
                 newThing.GetComponent<MeshLoader>().LoadMeshFromPath($"{Application.dataPath}/{nameParts[1]}.dat");
             }
             else if ("Move".Equals(parts[0])){
@@ -64,7 +65,7 @@ public class Connection : MonoBehaviour
                     {
                         Vector3 pos = new Vector3(float.Parse(parts[2]), float.Parse(parts[3]), float.Parse(parts[4]));
                         g.transform.position = pos;
-                        Debug.Log("Move" + parts[2] + "^" + parts[3] + "^" + parts[4]);
+                        //Debug.Log("Move" + parts[2] + "^" + parts[3] + "^" + parts[4]);
                         break;
                     }
                 }
@@ -78,7 +79,7 @@ public class Connection : MonoBehaviour
                         Quaternion rotate = new Quaternion(float.Parse(parts[2]), float.Parse(parts[3]), float.Parse(parts[4]), float.Parse(parts[5]));
                         g.transform.rotation = Quaternion.identity;
                         g.transform.rotation *= rotate;
-                        Debug.Log("Rotate" + parts[2] + "^" + parts[3] + "^" + parts[4] + "^" + parts[5]);
+                        //Debug.Log("Rotate" + parts[2] + "^" + parts[3] + "^" + parts[4] + "^" + parts[5]);
                         break;
                     }
                 }
@@ -91,7 +92,7 @@ public class Connection : MonoBehaviour
                     {
                         Vector3 scale = new Vector3(float.Parse(parts[2]), float.Parse(parts[3]), float.Parse(parts[4]));
                         g.transform.localScale = scale;
-                        Debug.Log("Scale" + parts[2] + "^" + parts[3] + "^" + parts[4]);
+                        //Debug.Log("Scale" + parts[2] + "^" + parts[3] + "^" + parts[4]);
                         break;
                     }
                 }

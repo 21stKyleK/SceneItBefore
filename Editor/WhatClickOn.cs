@@ -26,7 +26,8 @@ public class WhatClickOn : MonoBehaviour
         connect = GameObject.Find("Connect").GetComponent<Connection>();
         if (connect == null)
         {
-            connect = new();
+            //connect = new Connection();
+            Debug.Log("Oops");
         }
     }
 
